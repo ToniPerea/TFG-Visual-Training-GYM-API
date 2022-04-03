@@ -1,0 +1,27 @@
+{
+  "name": "tfg-visual-training-gym-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ToniPerea/TFG-Visual-Training-GYM-API.git"
+  },
+  "author": "Antonio Carlos Perea Parras",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ToniPerea/TFG-Visual-Training-GYM-API/issues"
+  },
+  "homepage": "https://github.com/ToniPerea/TFG-Visual-Training-GYM-API#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.9",
+    "nodemon": "^2.0.15"
+  }
+}
