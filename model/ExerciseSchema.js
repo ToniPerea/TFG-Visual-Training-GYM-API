@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const trainingSchema = new mongoose.Schema({
+const exerciseSchema = new mongoose.Schema({
     name: {type: String, required: true},
     weight: {type: String, required: true},
     series: {type: Number, required: true},
@@ -8,4 +8,4 @@ const trainingSchema = new mongoose.Schema({
     gif: {type: String, required: true},
 });
 
-module.exports = mongoose.model("trainings", trainingSchema);
+module.exports = mongoose.model("exercises", exerciseSchema);
