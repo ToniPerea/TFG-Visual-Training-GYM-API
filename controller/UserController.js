@@ -9,20 +9,16 @@ const register = async (req, res) => {
 
     const newUser = new user({name, username, email, password: passwordHash, role, status, age});
 
-    await newUser.save().then((userSaved) => {
-        console.log(userSaved);
+    await newUser.save().then(() => {
         res.status(200).send({msg:"Login Successful", data: newUser});
     }).catch((error) => {
-        console.error(error)
-        res.status(404).send("User NOT registered correctly!!!");
+        res.status(404).send("User NOT Registered Correctly!!! Error: " + error.msg);
     })
 }
 
 const login = async (req, res) => {
     try {
         const {email, password} = req.body;
-        console.log("Servidor recibe")
-        console.log(req.body)
         let userEmail;
 
         if (!email || !password) {
