@@ -1,13 +1,13 @@
-const training = require("../model/ExerciseSchema")
+const exercise = require("../model/ExerciseSchema")
 
 const add_exercise = async (req, res) => {
     try {
         // const {name, weight, series, repetitions, gif} = req.body;
 
-        const newTraining = new training(req.body);
+        const newExercise = new exercise(req.body);
 
-        await newTraining.save().then(() => {
-            res.status(200).send({msg: "Exercise Added", data: newTraining});
+        await newExercise.save().then(() => {
+            res.status(200).send({msg: "Exercise Added", data: newExercise});
         }).catch((error) => {
             res.status(404).send("Exercise NOT Added Correctly!!! Error: " + error.msg);
         })
@@ -22,7 +22,7 @@ const add_exercise = async (req, res) => {
 
 const get_exercise_by_id = async (req, res) => {
     try {
-        await training.findOne({_id: req.body}).then((result) => {
+        await exercise.findOne({_id: req.body}).then((result) => {
             if (!result) {
                 res.status(404).json({
                     msg: "Exercise not found.",
@@ -45,7 +45,7 @@ const update_exercise = async (req, res) => {
     const id = {'_id': req.body._id};
 
     try {
-        await training.findOneAndUpdate(id, req.body).then((result) => {
+        await exercise.findOneAndUpdate(id, req.body).then((result) => {
             if (!result) {
                 res.status(404).json({
                     msg: "Exercise Not Found.",
@@ -67,7 +67,7 @@ const update_exercise = async (req, res) => {
 
 const delete_exercise = async (req, res) => {
     try {
-        await training.deleteOne({_id: req.body}).then((result) => {
+        await exercise.deleteOne({_id: req.body}).then(() => {
             res.status(200).json({msg: 'Exercise Delete'});
         })
     } catch
