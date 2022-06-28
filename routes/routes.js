@@ -11,9 +11,9 @@ router.post("/login", login);
 
 // Exercise Routes
 router.post("/exercise", add_exercise)
-router.get("/getExercise", get_exercise_by_id)
+router.get("/getExercise/:id", get_exercise_by_id)
 router.put("/updateExercise", update_exercise)
-router.delete("/deleteExercise", delete_exercise)
+router.delete("/deleteExercise/:id", delete_exercise)
 
 // Training Routes
 router.post("/training", add_training)

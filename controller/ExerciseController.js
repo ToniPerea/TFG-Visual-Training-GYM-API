@@ -21,8 +21,9 @@ const add_exercise = async (req, res) => {
 }
 
 const get_exercise_by_id = async (req, res) => {
+    const {id} = req.params;
     try {
-        await exercise.findOne({_id: req.body}).then((result) => {
+        await exercise.findOne({_id: id}).then((result) => {
             if (!result) {
                 res.status(404).json({
                     msg: "Exercise not found.",
@@ -66,8 +67,9 @@ const update_exercise = async (req, res) => {
 }
 
 const delete_exercise = async (req, res) => {
+    const {id} = req.params;
     try {
-        await exercise.deleteOne({_id: req.body}).then(() => {
+        await exercise.deleteOne({_id: id}).then(() => {
             res.status(200).json({msg: 'Exercise Delete'});
         })
     } catch
