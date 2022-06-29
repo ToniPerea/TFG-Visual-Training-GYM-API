@@ -1,5 +1,7 @@
 const user = require("../model/UserSchema");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken")
+const SECRET_KEY = '8VXWEO1X4IyI1f41Nn4H3g=='
 
 const register = async (req, res) => {
     const {name, age, username, email, password, role, status} = req.body;
@@ -50,8 +52,18 @@ const login = async (req, res) => {
                 msg: "Incorrect password",
             });
         }
+        const expiresIn = 24 * 60 * 60
+        const accessToken = jwt.sign({email: userEmail.email}, SECRET_KEY, {expiresIn: expiresIn});
+
+        const dataUser = {
+            name: userEmail.name,
+            email: userEmail.email,
+            accessToken: accessToken,
+            expiresIn: expiresIn
+        }
 
         res.status(200).json({
+            dataUser,
             msg: `Login was successful with email ${userEmail.email}`,
         });
     } catch (err) {
