@@ -61,4 +61,28 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = {register, login};
+const update_user = async (req, res) => {
+    const id = {'_id': req.body._id};
+
+    try {
+        await user.findOneAndUpdate(id, req.body).then((result) => {
+            if (!result) {
+                res.status(404).json({
+                    msg: "User Not Found.",
+                });
+            }
+
+            res.status(200).json(req.body);
+        })
+
+
+    } catch
+        (err) {
+        res.status(500).json({
+            error: err.message,
+        });
+    }
+
+}
+
+module.exports = {register, login, update_user};
