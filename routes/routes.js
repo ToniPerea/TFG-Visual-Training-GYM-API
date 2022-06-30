@@ -8,7 +8,7 @@ const router = express.Router();
 // User Routes
 router.post("/register", register);
 router.post("/login", login);
-router.put("/updateUser", update_user)
+router.put("/updateUser/:email", update_user)
 router.get("/getUserByEmail/:email", get_user_by_email)
 
 // Exercise Routes

@@ -12,7 +12,7 @@ const register = async (req, res) => {
     const newUser = new user({name, username, email, password: passwordHash, role, status, age});
 
     await newUser.save().then(() => {
-        res.status(200).send({msg:"Login Successful", data: newUser});
+        res.status(200).send({msg: "Login Successful", data: newUser});
     }).catch((error) => {
         res.status(404).send("User NOT Registered Correctly!!! Error: " + error.msg);
     })
@@ -89,8 +89,6 @@ const get_user_by_email = async (req, res) => {
         })
 
 
-
-
     } catch
         (err) {
         res.status(500).json({
@@ -100,7 +98,7 @@ const get_user_by_email = async (req, res) => {
 }
 
 const update_user = async (req, res) => {
-    const email = {'email': req.body.email};
+    const email = {'email': req.params.email};
 
     try {
         await user.findOne(email).then((result) => {
@@ -117,7 +115,17 @@ const update_user = async (req, res) => {
 
             result.save()
 
-            res.status(200).json(result);
+            const expiresIn = 24 * 60 * 60
+            const accessToken = jwt.sign({email: req.body.email}, SECRET_KEY, {expiresIn: expiresIn});
+
+            const dataUser = {
+                name: req.body.name,
+                email: req.body.email,
+                accessToken: accessToken,
+                expiresIn: expiresIn
+            }
+
+            res.status(200).json({dataUser});
         })
 
 
