@@ -73,18 +73,51 @@ const login = async (req, res) => {
     }
 };
 
-const update_user = async (req, res) => {
-    const id = {'_id': req.body._id};
+const get_user_by_email = async (req, res) => {
+    const {email} = req.params;
 
     try {
-        await user.findOneAndUpdate(id, req.body).then((result) => {
+        await user.findOne({email: email}).then((result) => {
+            if (!result) {
+                res.status(404).json({
+                    msg: "User not found.",
+                });
+            }
+
+            res.status(200).json(result);
+
+        })
+
+
+
+
+    } catch
+        (err) {
+        res.status(500).json({
+            error: err.message,
+        });
+    }
+}
+
+const update_user = async (req, res) => {
+    const email = {'email': req.body.email};
+
+    try {
+        await user.findOne(email).then((result) => {
             if (!result) {
                 res.status(404).json({
                     msg: "User Not Found.",
                 });
             }
 
-            res.status(200).json(req.body);
+            result.name = req.body.name
+            result.age = req.body.age
+            result.email = req.body.email
+            result.role = req.body.role
+
+            result.save()
+
+            res.status(200).json(result);
         })
 
 
@@ -97,4 +130,4 @@ const update_user = async (req, res) => {
 
 }
 
-module.exports = {register, login, update_user};
+module.exports = {register, login, update_user, get_user_by_email};
