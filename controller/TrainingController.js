@@ -5,7 +5,6 @@ const add_training = async (req, res) => {
         // const {name, weight, series, repetitions, gif} = req.body;
 
         const newTraining = new training(req.body);
-        console.log(req.body)
 
         await newTraining.save().then(() => {
             res.status(200).send({msg: "Training Added", data: newTraining});

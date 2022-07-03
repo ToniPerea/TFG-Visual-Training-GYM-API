@@ -11,7 +11,7 @@ const exerciseCompleteSchema = new mongoose.Schema({
 
 const trainingSchema = new mongoose.Schema({
     exercises: {type: Array, of: exerciseCompleteSchema, required: true},
-    date_of_training: {type: String, required: true},
+    date_of_training: {type: Date, required: true},
     email_client: {type: String, required: true},
     email_trainer: {type: String, required: true}
 });
