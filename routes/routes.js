@@ -8,7 +8,7 @@ const {
 } = require("../controller/ExerciseController");
 const {
     add_training,
-    get_training_by_id,
+    get_training_by_email_date,
     update_training,
     delete_training,
     trainings_list
@@ -32,7 +32,7 @@ router.get("/getExercisesList", exercises_list)
 
 // Training Routes
 router.post("/training", add_training)
-router.get("/getTraining", get_training_by_id)
+router.get("/getTraining/:email", get_training_by_email_date)
 router.put("/updateTraining", update_training)
 router.delete("/deleteTraining", delete_training)
 router.get("/getTrainingsList", trainings_list)

@@ -21,9 +21,10 @@ const add_training = async (req, res) => {
 
 }
 
-const get_training_by_id = async (req, res) => {
+const get_training_by_email_date = async (req, res) => {
+    const emailAndDate = {'email_client': req.params.email}
     try {
-        await training.findOne({_id: req.body}).then((result) => {
+        await training.findOne(emailAndDate).then((result) => {
             if (!result) {
                 res.status(404).json({
                     msg: "Training not found.",
@@ -94,4 +95,4 @@ const trainings_list = async (req, res) => {
 }
 
 
-module.exports = {add_training, get_training_by_id, update_training, delete_training, trainings_list};
+module.exports = {add_training, get_training_by_email_date, update_training, delete_training, trainings_list};
