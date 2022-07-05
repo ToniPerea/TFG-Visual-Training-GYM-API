@@ -138,4 +138,12 @@ const update_user = async (req, res) => {
 
 }
 
-module.exports = {register, login, update_user, get_user_by_email};
+const users_list = async (req, res) => {
+    await user.find().then((result) => {
+        res.status(200).json(result);
+    })
+
+
+}
+
+module.exports = {register, login, update_user, get_user_by_email, users_list};
