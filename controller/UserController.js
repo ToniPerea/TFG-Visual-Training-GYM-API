@@ -149,8 +149,6 @@ const users_list = async (req, res) => {
             error: err.message,
         });
     }
-
-
 }
 
 module.exports = {register, login, update_user, get_user_by_email, users_list};

@@ -4,7 +4,7 @@ const {
     add_exercise,
     get_exercise_by_id,
     update_exercise,
-    delete_exercise
+    delete_exercise, exercises_list
 } = require("../controller/ExerciseController");
 const {
     add_training,
@@ -28,6 +28,7 @@ router.post("/exercise", add_exercise)
 router.get("/getExercise/:id", get_exercise_by_id)
 router.put("/updateExercise", update_exercise)
 router.delete("/deleteExercise/:id", delete_exercise)
+router.get("/getExercisesList", exercises_list)
 
 // Training Routes
 router.post("/training", add_training)

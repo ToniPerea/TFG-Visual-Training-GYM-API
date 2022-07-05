@@ -1,4 +1,5 @@
 const exercise = require("../model/ExerciseSchema")
+const user = require("../model/UserSchema");
 
 const add_exercise = async (req, res) => {
     try {
@@ -80,5 +81,18 @@ const delete_exercise = async (req, res) => {
     }
 }
 
+const exercises_list = async (req, res) => {
+    try {
+        await exercise.find().then((result) => {
+            res.status(200).json(result);
+        })
+    } catch
+        (err) {
+        res.status(500).json({
+            error: err.message,
+        });
+    }
+}
 
-module.exports = {add_exercise, get_exercise_by_id, update_exercise, delete_exercise};
+
+module.exports = {add_exercise, get_exercise_by_id, update_exercise, delete_exercise, exercises_list};
