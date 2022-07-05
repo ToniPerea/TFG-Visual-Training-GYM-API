@@ -139,9 +139,16 @@ const update_user = async (req, res) => {
 }
 
 const users_list = async (req, res) => {
-    await user.find().then((result) => {
-        res.status(200).json(result);
-    })
+    try {
+        await user.find().then((result) => {
+            res.status(200).json(result);
+        })
+    } catch
+        (err) {
+        res.status(500).json({
+            error: err.message,
+        });
+    }
 
 
 }

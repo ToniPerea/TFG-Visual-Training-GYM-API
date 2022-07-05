@@ -1,4 +1,5 @@
 const training = require("../model/TrainingSchema")
+const user = require("../model/UserSchema");
 
 const add_training = async (req, res) => {
     try {
@@ -78,5 +79,19 @@ const delete_training = async (req, res) => {
     }
 }
 
+const trainings_list = async (req, res) => {
+    try {
+        await training.find().then((result) => {
+            res.status(200).json(result);
+        })
+    } catch
+        (err) {
+        res.status(500).json({
+            error: err.message,
+        });
+    }
 
-module.exports = {add_training, get_training_by_id, update_training, delete_training};
+}
+
+
+module.exports = {add_training, get_training_by_id, update_training, delete_training, trainings_list};
