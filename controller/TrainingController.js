@@ -1,5 +1,5 @@
 const training = require("../model/TrainingSchema")
-const user = require("../model/UserSchema");
+const mongoose = require("mongoose");
 
 const add_training = async (req, res) => {
     try {
@@ -25,6 +25,30 @@ const get_training_by_email_date = async (req, res) => {
     const emailAndDate = {'email_client': req.params.email}
     try {
         await training.findOne(emailAndDate).then((result) => {
+            if (!result) {
+                res.status(404).json({
+                    msg: "Training not found.",
+                });
+            }
+
+            res.status(200).json(result);
+        })
+
+
+    } catch
+        (err) {
+        res.status(500).json({
+            error: err.message,
+        });
+    }
+}
+
+const get_training_by_id = async (req, res) => {
+    console.log(req.params.id)
+    const id = {'_id': mongoose.Types.ObjectId(req.params.id)}
+    console.log(id)
+    try {
+        await training.findOne(id).then((result) => {
             if (!result) {
                 res.status(404).json({
                     msg: "Training not found.",
@@ -95,4 +119,4 @@ const trainings_list = async (req, res) => {
 }
 
 
-module.exports = {add_training, get_training_by_email_date, update_training, delete_training, trainings_list};
+module.exports = {add_training, get_training_by_email_date, update_training, delete_training, trainings_list, get_training_by_id};
