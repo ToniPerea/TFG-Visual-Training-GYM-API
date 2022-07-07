@@ -44,9 +44,7 @@ const get_training_by_email_date = async (req, res) => {
 }
 
 const get_training_by_id = async (req, res) => {
-    console.log(req.params.id)
     const id = {'_id': mongoose.Types.ObjectId(req.params.id)}
-    console.log(id)
     try {
         await training.findOne(id).then((result) => {
             if (!result) {
