@@ -116,5 +116,21 @@ const trainings_list = async (req, res) => {
 
 }
 
+const trainings_list_one_user = async (req, res) => {
+    const email = {'email_client': req.params.email};
+    try {
+        await training.find(email).then((result) => {
+            res.status(200).json(result);
+        })
+    } catch
+        (err) {
+        res.status(500).json({
+            error: err.message,
+        });
+    }
 
-module.exports = {add_training, get_training_by_email_date, update_training, delete_training, trainings_list, get_training_by_id};
+}
+
+
+module.exports = {add_training, get_training_by_email_date,
+    update_training, delete_training, trainings_list, get_training_by_id, trainings_list_one_user};
