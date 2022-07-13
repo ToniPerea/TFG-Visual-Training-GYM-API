@@ -1,6 +1,7 @@
 const user = require("../model/UserSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
+const training = require("../model/TrainingSchema");
 const SECRET_KEY = '8VXWEO1X4IyI1f41Nn4H3g=='
 
 const register = async (req, res) => {
@@ -101,6 +102,12 @@ const update_user = async (req, res) => {
     const email = {'email': req.params.email};
 
     try {
+        if (req.body.role === 'Cliente') {
+            await training.updateMany({'email_client': req.params.email}, {'email_client': req.body.email})
+        } else if (req.body.role === 'Entrenador') {
+            await training.updateMany({'email_trainer': req.params.email}, {'email_trainer': req.body.email})
+        }
+
         await user.findOne(email).then((result) => {
             if (!result) {
                 res.status(404).json({
