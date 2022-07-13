@@ -12,7 +12,8 @@ const {
     update_training,
     delete_training,
     trainings_list,
-    get_training_by_id
+    get_training_by_id,
+    trainings_list_one_user
 } = require("../controller/TrainingController");
 
 const router = express.Router();
@@ -37,6 +38,7 @@ router.get("/getTraining/:email", get_training_by_email_date)
 router.put("/updateTraining", update_training)
 router.delete("/deleteTraining", delete_training)
 router.get("/getTrainingsList", trainings_list)
+router.get("/getTrainingsListOneUser/:email", trainings_list_one_user)
 router.get("/getTrainingByID/:id", get_training_by_id)
 
 module.exports = router;
