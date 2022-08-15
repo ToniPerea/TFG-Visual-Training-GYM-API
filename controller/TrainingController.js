@@ -1,6 +1,29 @@
 const training = require("../model/TrainingSchema")
 const mongoose = require("mongoose");
 
+/**
+ * @swagger
+ * /training:
+ *  post:
+ *    security:
+ *       - bearerAuth: []
+ *    summary: Crea un tabla de entrenamiento en la base de datos
+ *    tags:
+ *      - Training
+ *    description: Crea un tabla de entrenamiento en la base de datos
+ *    parameters:
+ *    - name: tabla
+ *      description: Tabla de ejercicios
+ *      in: path
+ *      required: true
+ *      type: json
+ *    responses:
+ *      200:
+ *        description: Training Added y datos de la tabla
+ *      500:
+ *        description: Error Message
+ *
+ */
 const add_training = async (req, res) => {
     try {
         // const {name, weight, series, repetitions, gif} = req.body;
@@ -43,6 +66,29 @@ const get_training_by_email_date = async (req, res) => {
     }
 }
 
+/**
+ * @swagger
+ * /getTrainingByID/:id:
+ *  get:
+ *    security:
+ *       - bearerAuth: []
+ *    summary: Devuelve la tabla de entrenamiento correspondiente con el ID
+ *    tags:
+ *      - Training
+ *    description: Devuelve la tabla de entrenamiento correspondiente con el ID
+ *    parameters:
+ *    - name: id
+ *      description: id de la tabla
+ *      in: path
+ *      required: true
+ *      type: string
+ *    responses:
+ *      200:
+ *        description: Objeto Json
+ *      500:
+ *        description: Error Message
+ *
+ */
 const get_training_by_id = async (req, res) => {
     const id = {'_id': mongoose.Types.ObjectId(req.params.id)}
     try {
@@ -102,6 +148,21 @@ const delete_training = async (req, res) => {
     }
 }
 
+/**
+ * @swagger
+ * /getTrainingsList:
+ *  get:
+ *    security:
+ *       - bearerAuth: []
+ *    summary: Devuelve una lista de todos las tablas de entrenamiento
+ *    tags:
+ *      - Training
+ *    description: Devuelve una lista de todos las tablas de entrenamiento
+ *    responses:
+ *      200:
+ *        description: Objeto JSON con la lista
+ *
+ */
 const trainings_list = async (req, res) => {
     try {
         await training.find().then((result) => {
@@ -116,6 +177,27 @@ const trainings_list = async (req, res) => {
 
 }
 
+/**
+ * @swagger
+ * /getTrainingsListOneUser/:email:
+ *  get:
+ *    security:
+ *       - bearerAuth: []
+ *    summary: Devuelve una lista de todos las tablas de entrenamientos del usuario con el email introducido
+ *    tags:
+ *      - Training
+ *    description: Devuelve una lista de todos las tablas de entrenamientos del usuario con el email introducido
+ *    parameters:
+ *    - name: email
+ *      description: Email del Usuario
+ *      in: path
+ *      required: true
+ *      type: string
+ *    responses:
+ *      200:
+ *        description: Objeto JSON con la lista
+ *
+ */
 const trainings_list_one_user = async (req, res) => {
     const email = {'email_client': req.params.email};
     try {

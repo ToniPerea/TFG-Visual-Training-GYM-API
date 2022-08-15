@@ -5,18 +5,21 @@ const user = require("../model/UserSchema");
  * @swagger
  * /exercise:
  *  post:
+ *    security:
+ *       - bearerAuth: []
+ *    summary: Crea un ejercicio en la base de datos
  *    tags:
  *      - Exercise
  *    description: Crea un ejercicio en la base de datos
  *    parameters:
- *    - name: Name
+ *    - name: name
  *      description: Nombre del ejercicio
- *      in: formData
+ *      in: path
  *      required: true
  *      type: string
- *    - name: Gif
+ *    - name: gif
  *      description: url del gif
- *      in: formData
+ *      in: path
  *      required: true
  *      type: string
  *    responses:
@@ -50,9 +53,18 @@ const add_exercise = async (req, res) => {
  * @swagger
  * /getExercise/:id:
  *  get:
+ *    security:
+ *       - bearerAuth: []
+ *    summary: Devuelve el ejercicio con el ID coincidente
  *    tags:
  *      - Exercise
  *    description: Devuelve el ejercicio con el ID coincidente
+ *    parameters:
+ *    - name: id
+ *      description: id del ejercicio
+ *      in: path
+ *      required: true
+ *      type: string
  *    responses:
  *      200:
  *        description: Objeto JSON
@@ -122,6 +134,9 @@ const delete_exercise = async (req, res) => {
  * @swagger
  * /getExercisesList:
  *  get:
+ *    security:
+ *       - bearerAuth: []
+ *    summary:  Devuelve una lista de todos los ejercicios
  *    tags:
  *      - Exercise
  *    description: Devuelve una lista de todos los ejercicios
