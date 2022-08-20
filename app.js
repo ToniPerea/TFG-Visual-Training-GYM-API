@@ -3,8 +3,24 @@ const cors = require("cors");
 const app = express();
 const router = require("./routes/routes");
 const mongoose = require("mongoose");
+const swaggerJsDoc = require("swagger-jsdoc")
+const swaggerUI = require("swagger-ui-express")
 
 require("dotenv").config();
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: 'Swagger VTGYM - API',
+      version: '1.0.0',
+    }
+  },
+  apis: ['./controller/*']
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

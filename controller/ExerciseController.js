@@ -1,6 +1,34 @@
 const exercise = require("../model/ExerciseSchema")
 const user = require("../model/UserSchema");
 
+/**
+ * @swagger
+ * /exercise:
+ *  post:
+ *    security:
+ *       - bearerAuth: []
+ *    summary: Crea un ejercicio en la base de datos
+ *    tags:
+ *      - Exercise
+ *    description: Crea un ejercicio en la base de datos
+ *    parameters:
+ *    - name: name
+ *      description: Nombre del ejercicio
+ *      in: path
+ *      required: true
+ *      type: string
+ *    - name: gif
+ *      description: url del gif
+ *      in: path
+ *      required: true
+ *      type: string
+ *    responses:
+ *      200:
+ *        description: Exercise Added y datos del ejercicio
+ *      500:
+ *        description: Error Message
+ *
+ */
 const add_exercise = async (req, res) => {
     try {
         // const {name, weight, series, repetitions, gif} = req.body;
@@ -21,6 +49,27 @@ const add_exercise = async (req, res) => {
 
 }
 
+/**
+ * @swagger
+ * /getExercise/:id:
+ *  get:
+ *    security:
+ *       - bearerAuth: []
+ *    summary: Devuelve el ejercicio con el ID coincidente
+ *    tags:
+ *      - Exercise
+ *    description: Devuelve el ejercicio con el ID coincidente
+ *    parameters:
+ *    - name: id
+ *      description: id del ejercicio
+ *      in: path
+ *      required: true
+ *      type: string
+ *    responses:
+ *      200:
+ *        description: Objeto JSON
+ *
+ */
 const get_exercise_by_id = async (req, res) => {
     const {id} = req.params;
     try {
@@ -81,6 +130,21 @@ const delete_exercise = async (req, res) => {
     }
 }
 
+/**
+ * @swagger
+ * /getExercisesList:
+ *  get:
+ *    security:
+ *       - bearerAuth: []
+ *    summary:  Devuelve una lista de todos los ejercicios
+ *    tags:
+ *      - Exercise
+ *    description: Devuelve una lista de todos los ejercicios
+ *    responses:
+ *      200:
+ *        description: Objeto JSON con la lista
+ *
+ */
 const exercises_list = async (req, res) => {
     try {
         await exercise.find().then((result) => {

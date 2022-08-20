@@ -4,6 +4,49 @@ const jwt = require("jsonwebtoken")
 const training = require("../model/TrainingSchema");
 const SECRET_KEY = '8VXWEO1X4IyI1f41Nn4H3g=='
 
+/**
+ * @swagger
+ * /register:
+ *  post:
+ *    security:
+ *       - bearerAuth: []
+ *    summary: Registra a un Usuario en la base de datos
+ *    tags:
+ *      - User
+ *    description: Registra a un Usuario en la base de datos
+ *    parameters:
+ *    - name: name
+ *      description: Nombre del ejercicio
+ *      in: path
+ *      required: true
+ *      type: string
+ *    - name: age
+ *      description: edad del usuario
+ *      in: path
+ *      required: true
+ *      type: string
+ *    - name: email
+ *      description: email
+ *      in: path
+ *      required: true
+ *      type: string
+ *    - name: password
+ *      description: contraseña
+ *      in: path
+ *      required: true
+ *      type: string
+ *    - name: role
+ *      description: role del usuario
+ *      in: path
+ *      required: true
+ *      type: string
+ *    responses:
+ *      200:
+ *        description: Register Succesfull
+ *      500:
+ *        description: Error Message
+ *
+ */
 const register = async (req, res) => {
     const {name, age, username, email, password, role, status} = req.body;
 
@@ -13,12 +56,40 @@ const register = async (req, res) => {
     const newUser = new user({name, username, email, password: passwordHash, role, status, age});
 
     await newUser.save().then(() => {
-        res.status(200).send({msg: "Login Successful", data: newUser});
+        res.status(200).send({msg: "Register Successful", data: newUser});
     }).catch((error) => {
         res.status(404).send("User NOT Registered Correctly!!! Error: " + error.msg);
     })
 }
 
+/**
+ * @swagger
+ * /login:
+ *  post:
+ *    security:
+ *       - bearerAuth: []
+ *    summary: Iniciar Sesión
+ *    tags:
+ *      - User
+ *    description: Inicia Sesión
+ *    parameters:
+ *    - name: email
+ *      description: email
+ *      in: path
+ *      required: true
+ *      type: string
+ *    - name: password
+ *      description: contraseña
+ *      in: path
+ *      required: true
+ *      type: string
+ *    responses:
+ *      200:
+ *        description: Login Succesfull
+ *      500:
+ *        description: Error Message
+ *
+ */
 const login = async (req, res) => {
     try {
         const {email, password} = req.body;
@@ -74,6 +145,27 @@ const login = async (req, res) => {
     }
 };
 
+/**
+ * @swagger
+ * /getUserByEmail/:email:
+ *  get:
+ *    security:
+ *       - bearerAuth: []
+ *    summary: Devuelve el Usuario con el email coincidente
+ *    tags:
+ *      - User
+ *    description: Devuelve el Usuario con el email coincidente
+ *    parameters:
+ *    - name: email
+ *      description: email del usuario
+ *      in: path
+ *      required: true
+ *      type: string
+ *    responses:
+ *      200:
+ *        description: Objeto JSON
+ *
+ */
 const get_user_by_email = async (req, res) => {
     const {email} = req.params;
 
@@ -98,6 +190,27 @@ const get_user_by_email = async (req, res) => {
     }
 }
 
+/**
+ * @swagger
+ * /updateUser/:email:
+ *  put:
+ *    security:
+ *       - bearerAuth: []
+ *    summary: Actualiza al usuario con el email coincidente
+ *    tags:
+ *      - User
+ *    description:  Actualiza al usuario con el email coincidente
+ *    parameters:
+ *    - name: email
+ *      description: email del usuario
+ *      in: path
+ *      required: true
+ *      type: string
+ *    responses:
+ *      200:
+ *        description: Objeto JSON
+ *
+ */
 const update_user = async (req, res) => {
     const email = {'email': req.params.email};
 
@@ -145,6 +258,21 @@ const update_user = async (req, res) => {
 
 }
 
+/**
+ * @swagger
+ * /getUsersList:
+ *  get:
+ *    security:
+ *       - bearerAuth: []
+ *    summary:  Devuelve una lista de todos los usuarios
+ *    tags:
+ *      - User
+ *    description: Devuelve una lista de todos los usuarios
+ *    responses:
+ *      200:
+ *        description: Objeto JSON con la lista
+ *
+ */
 const users_list = async (req, res) => {
     try {
         await user.find().then((result) => {
