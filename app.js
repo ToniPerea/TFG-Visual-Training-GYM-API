@@ -11,7 +11,7 @@ require("dotenv").config();
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
-      title: 'Swagger VTGYM - API',
+      title: 'Swagger VTGYM-API',
       version: '1.0.0',
     }
   },
